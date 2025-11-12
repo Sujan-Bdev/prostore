@@ -9,7 +9,14 @@ export async function getLatestProducts() {
     take: LATEST_PRODUCTS_LIMIT,
     orderBy: { createAt: 'desc' },
   });
-  return convertToPlainObject(data);
+  const plain = convertToPlainObject(data);
+  return plain;
+
+  // return plain.map(p => ({
+  //   ...p,
+  //   price: Number(p.price),
+  //   rating: Number(p.rating),
+  // }));
 }
 
 // Get single product by it's slug

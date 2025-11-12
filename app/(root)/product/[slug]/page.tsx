@@ -4,7 +4,7 @@ import { getProductBySlug } from '@/lib/actions/product.action';
 import { notFound } from 'next/navigation';
 import { Badge } from "@/components/ui/badge"
 import { Button } from '@/components/ui/button';
-import ProductImages from '@/components/shared/product/produc-images';
+import ProductImages from '@/components/shared/product/product-images';
 
 const ProductDetailsPage = async (props: {
   params: Promise<{ slug: string }>;

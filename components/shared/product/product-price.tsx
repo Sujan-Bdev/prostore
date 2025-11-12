@@ -8,7 +8,7 @@ function ProductPrice({
   className?: string;
 }) {
   // Ensure two decimal values
-  const stringValue = value?.toFixed(2);
+  const stringValue = `${value?.toFixed(2)}`;
   // Get int / float value
   const [intValue, floatValue] = stringValue?.split('.');
   return (
