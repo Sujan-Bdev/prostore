@@ -23,7 +23,7 @@ export const config = {
         password: { type: 'password' },
       },
       async authorize(credentials) {
-        if (credentials == null) return null;
+        if (!credentials) return null;
         // find user in database
         const user = await prisma.user.findFirst({
           where: {
@@ -37,14 +37,14 @@ export const config = {
           credentials.password as string,
           user.password
         );
-        if (isMatched) {
-          return {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            role: user.role,
-          };
-        }
+        if (!isMatched) return null;
+
+        return {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+        };
       },
     }),
   ],
