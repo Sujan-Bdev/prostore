@@ -28,6 +28,6 @@ export async function signInWithCredentials(
 
 // SignOut
 
-async function signOutUser(){
+export async function signOutUser(){
     await signOut()
 }
