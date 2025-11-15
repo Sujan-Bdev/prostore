@@ -4,6 +4,7 @@ import { compareSync } from 'bcrypt-ts-edge';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import type { NextAuthConfig } from 'next-auth';
+import { NextResponse } from 'next/server';
 
 export const config = {
   pages: {
@@ -75,7 +76,7 @@ export const config = {
         }
       }
       return token;
-    },
+    }
   },
 } satisfies NextAuthConfig;
 
