@@ -4,12 +4,13 @@ import { formatNumberWithDecimal } from './utils';
 // Schema for inserting Products
 
 const currency = z
-  .string()
+  .coerce.number()
   .refine(
     value => /^\d+(\.\d{2})?$/.test(formatNumberWithDecimal(Number(value))),
     'Price must have exactly two decimal places'
   )
   .transform(val => Number(val));
+
 export const insertProductSchema = z.object({
   name: z.string().min(3, 'Name must be at least 3 characters'),
   slug: z.string().min(3, 'Slug must be at least 3 characters'),
@@ -37,7 +38,7 @@ export const signUpFormSchema = z
     password: z.string().min(6, 'Password must be at least 6 characters'),
     confirmPassword: z
       .string()
-      .min(6, 'Confirm assword must be at least 6 characters'),
+      .min(6, 'Confirm password must be at least 6 characters'),
   })
   .refine(data => data.password === data.confirmPassword, {
     message: "Password don't match",

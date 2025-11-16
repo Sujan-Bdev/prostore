@@ -5,6 +5,7 @@ import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import type { NextAuthConfig } from 'next-auth';
 import { NextResponse } from 'next/server';
+import { authConfig } from './auth.config';
 
 export const config = {
   pages: {
@@ -50,6 +51,7 @@ export const config = {
     }),
   ],
   callbacks: {
+    ...authConfig.callbacks,
     async session({ session, user, trigger, token }: any) {
       // set the user ID from the token
       session.user.id = token.sub;
@@ -76,7 +78,7 @@ export const config = {
         }
       }
       return token;
-    }
+    },
   },
 } satisfies NextAuthConfig;
 
