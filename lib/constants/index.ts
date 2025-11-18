@@ -21,3 +21,12 @@ export const singUpDefaultValues = {
   password: '',
   confirmPassword:''
 };
+
+export const shippingAddressDefaultValues = {
+  fullName:'',
+  streetAddress: '',
+  city:'',
+  postalCode:'',
+  country:''
+
+}
