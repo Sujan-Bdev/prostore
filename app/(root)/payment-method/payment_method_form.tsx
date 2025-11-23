@@ -9,12 +9,10 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { updateUserPaymentMethod } from '@/lib/actions/user.actions';
 import { DEFAULT_PAYMENT_METHOD, PAYMENT_METHODS } from '@/lib/constants';
-import { paymentMethodSchema, shippingAddressSchema } from '@/lib/validators';
-import { PaymentMethod } from '@/types';
+import { paymentMethodSchema } from '@/lib/validators';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ArrowRight, Loader } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -29,24 +27,28 @@ const PaymentMethodForm = ({
   preferredPaymentMethod: string | null;
 }) => {
   const router = useRouter();
-  const form = useForm<PaymentMethod>({
-    resolver: zodResolver(paymentMethodSchema),
-    defaultValues: {
-      type: preferredPaymentMethod || DEFAULT_PAYMENT_METHOD,
-    },
-  });
+  const form =
+    useForm <
+    z.infer<typeof paymentMethodSchema>>({
+      resolver: zodResolver(paymentMethodSchema),
+      defaultValues: {
+        type: preferredPaymentMethod || DEFAULT_PAYMENT_METHOD,
+      },
+    });
 
   const [isPending, startTransition] = useTransition();
-  const onSubmit: SubmitHandler<PaymentMethod> = (values) => {
-        startTransition(async () => {
-          const res = await updateUserPaymentMethod(values);
+  const onSubmit: SubmitHandler<
+    z.infer<typeof paymentMethodSchema>
+  > = values => {
+    startTransition(async () => {
+      const res = await updateUserPaymentMethod(values);
 
-          if (!res?.success) {
-            toast.error(res?.message);
-            return;
-          }
-          router.push('/place-order');
-        });
+      if (!res?.success) {
+        toast.error(res?.message);
+        return;
+      }
+      router.push('/place-order');
+    });
     return;
   };
 

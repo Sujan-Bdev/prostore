@@ -4,8 +4,7 @@ import {
   insertOrderItemSchema,
   insertOrderSchema,
   insertProductSchema,
-  paymentMethodSchema,
-  shippingAddressSchema,
+  shippingAddressSchema
 } from '@/lib/validators';
 import * as z from 'zod';
 
