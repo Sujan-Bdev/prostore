@@ -1,6 +1,8 @@
 import { getOrderById } from '@/lib/actions/order-actions';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import OrderDetailsTable from './order-details-table';
+import { ShippingAddress } from '@/types';
 
 export const metadata: Metadata = {
   title: 'Order Details',
@@ -16,5 +18,12 @@ export default async function OrderDetailsPage({ params }: OrderPageProps) {
   const order = await getOrderById(id);
   if (!order) notFound();
 
-  return <div>Details</div>;
+  return (
+    <OrderDetailsTable
+      order={{
+        ...order,
+        shippingAddress: order.shippingAddress as ShippingAddress,
+      }}
+    />
+  );
 }
