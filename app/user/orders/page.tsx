@@ -10,6 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import Pagination from '@/components/shared/pagination';
 
 export const metadata: Metadata = {
   title: 'My Orders',
@@ -55,13 +56,20 @@ const OrdersPage = async (props: {
                     : 'Not Delivered'}{' '}
                 </TableCell>
                 <TableCell>
-                    <Link href={`/order/${order.id}`}>
-                    <span className="px-2"> Details</span></Link>
+                  <Link href={`/order/${order.id}`}>
+                    <span className="px-2"> Details</span>
+                  </Link>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
+        {orders.totalPages > 1 && (
+          <Pagination
+            page={Number(page) || 1}
+            totalPages={orders?.totalPages}
+          />
+        )}
       </div>
     </div>
   );
